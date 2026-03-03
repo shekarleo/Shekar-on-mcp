@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCP – First Principles + Interactive Quiz</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
+    margin:0;
+    padding:0;
+    line-height:1.6;
+}
+header {
+    background:#111827;
+    color:white;
+    padding:30px;
+    text-align:center;
+}
+section {
+    background:white;
+    margin:20px auto;
+    padding:30px;
+    max-width:900px;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+h2 { border-bottom:2px solid #eee; padding-bottom:10px; }
+
+.arch-box {
+    display:flex;
+    justify-content:space-between;
+    text-align:center;
+    margin-top:20px;
+}
+.box {
+    flex:1;
+    padding:20px;
+    margin:10px;
+    background:#eef2ff;
+    border-radius:8px;
+}
+.quiz-question { margin-bottom:20px; }
+button {
+    padding:10px 20px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+button:hover { background:#1d4ed8; }
+.result {
+    margin-top:20px;
+    font-weight:bold;
+}
+input[type="text"] {
+    padding:8px;
+    width:100%;
+    margin-bottom:20px;
+}
+footer {
+    text-align:center;
+    padding:20px;
+    color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Model Context Protocol (MCP)</h1>
+<p>From First Principles to Enterprise AI Architecture</p>
+</header>
+
+<section>
+<h2>1️⃣ First Principle Thinking</h2>
+<p>
+LLMs are intelligent but stateless. They do not know your enterprise systems.
+The core problem:
+<strong>How can AI securely access structured enterprise data in real time?</strong>
+</p>
+<p>
+MCP solves this by introducing a standardized communication layer between models and tools.
+</p>
+</section>
+
+<section>
+<h2>2️⃣ MCP Architecture (Visual View)</h2>
+
+<div class="arch-box">
+<div class="box">
+<h3>LLM</h3>
+<p>Reasoning Engine</p>
+</div>
+
+<div class="box">
+<h3>MCP Server</h3>
+<p>Tool Discovery & Secure Routing</p>
+</div>
+
+<div class="box">
+<h3>Enterprise Tools</h3>
+<p>APIs • DB • CRM • Data Lake</p>
+</div>
+</div>
+
+<p style="text-align:center;margin-top:20px;">
+LLM → MCP Server → Enterprise Tools → Structured Response → LLM
+</p>
+</section>
+
+<section>
+<h2>3️⃣ Why MCP Matters</h2>
+<ul>
+<li>Standardized AI integration</li>
+<li>Tool discoverability</li>
+<li>Governance & auditability</li>
+<li>Separation of reasoning and execution</li>
+<li>Scalable enterprise AI</li>
+</ul>
+</section>
+
+<section>
+<h2>🧠 Interactive Quiz</h2>
+
+<label>Enter Your Name:</label>
+<input type="text" id="username" placeholder="Your Name">
+
+<div class="quiz-question">
+<p><strong>1. What core problem does MCP solve?</strong></p>
+<input type="radio" name="q1" value="a"> Model training speed<br>
+<input type="radio" name="q1" value="b"> Model access to structured enterprise context<br>
+<input type="radio" name="q1" value="c"> GPU optimization<br>
+<input type="radio" name="q1" value="d"> Token reduction<br>
+</div>
+
+<div class="quiz-question">
+<p><strong>2. MCP enables:</strong></p>
+<input type="radio" name="q2" value="a"> Better prompt writing<br>
+<input type="radio" name="q2" value="b"> Standardized tool communication<br>
+<input type="radio" name="q2" value="c"> Model compression<br>
+<input type="radio" name="q2" value="d"> UI improvements<br>
+</div>
+
+<div class="quiz-question">
+<p><strong>3. Which component exposes tools?</strong></p>
+<input type="radio" name="q3" value="a"> Model<br>
+<input type="radio" name="q3" value="b"> Context Window<br>
+<input type="radio" name="q3" value="c"> MCP Server<br>
+<input type="radio" name="q3" value="d"> Tokenizer<br>
+</div>
+
+<div class="quiz-question">
+<p><strong>4. MCP improves enterprise AI by:</strong></p>
+<input type="radio" name="q4" value="a"> Increasing hallucination<br>
+<input type="radio" name="q4" value="b"> Removing APIs<br>
+<input type="radio" name="q4" value="c"> Securely connecting models to systems<br>
+<input type="radio" name="q4" value="d"> Making prompts longer<br>
+</div>
+
+<button onclick="calculateScore()">Submit Quiz</button>
+
+<div class="result" id="result"></div>
+
+</section>
+
+<footer>
+Enterprise MCP Learning Module
+</footer>
+
+<script>
+function calculateScore() {
+    let score = 0;
+    const answers = { q1: "b", q2: "b", q3: "c", q4: "c" };
+
+    Object.keys(answers).forEach(q => {
+        const selected = document.querySelector('input[name="' + q + '"]:checked');
+        if (selected && selected.value === answers[q]) {
+            score++;
+        }
+    });
+
+    const name = document.getElementById("username").value || "User";
+    document.getElementById("result").innerHTML =
+        name + ", your score is " + score + "/4";
+
+    // 🔗 OPTIONAL: Send results to Google Sheet
+    fetch("PASTE_YOUR_GOOGLE_SCRIPT_WEBAPP_URL_HERE", {
+        method: "POST",
+        body: JSON.stringify({
+            name: name,
+            score: score,
+            total: 4,
+            timestamp: new Date().toISOString()
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+}
+</script>
+
+</body>
+</html>
